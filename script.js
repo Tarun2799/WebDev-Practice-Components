@@ -78,20 +78,17 @@ function select(elem){
 }
 
 var curr=0;
+let isAnimating = false;
 
-function setInitial(){
-    console.log(users);
-    select(".maincard img").src = users[curr].displayPic;
-    // select(".incomingcard img").src = users[curr+1]?.displayPic;
-
-    select(".prflimg img").src = users[curr]?.profilePic;
-    select(".badge h5").textContent = users[curr].pendingMessage;
-    select(".location h3").textContent = users[curr]?.location;
-    select(".name h1:nth-child(1)").textContent = users[curr]?.name;
-    select(".name h1:nth-child(2)").textContent = users[curr]?.age;
+function setData(index){
+    select(".prflimg img").src = users[index]?.profilePic;
+    select(".badge h5").textContent = users[index].pendingMessage;
+    select(".location h3").textContent = users[index]?.location;
+    select(".name h1:nth-child(1)").textContent = users[index]?.name;
+    select(".name h1:nth-child(2)").textContent = users[index]?.age;
 
     var clutter = "";
-    users[curr].interests.forEach(function(interest){
+    users[index].interests.forEach(function(interest){
         clutter += `<div class="tag flex items-center bg-white/30 px-3 py-1 rounded-full gap-3">
             ${interest.icon}
             <h3 class="text-md tracking-tight" >${interest.interest}</h3>
@@ -99,10 +96,110 @@ function setInitial(){
     })
     select(".tags").innerHTML = clutter;
 
-    select(".bio p").textContent = users[curr].bio;
+    select(".bio p").textContent = users[index].bio;
 
+}
+
+function setInitial(){
+    console.log(users);
+    select(".maincard img").src = users[curr].displayPic;
+    select(".incomingcard img").src = users[curr+1]?.displayPic;
+
+    setData(curr);
+    
     curr =2;
 
 }
 
 setInitial();
+
+
+// 1. deny mai animation lga kar incoming card ko aage leaaye.
+function imageChange(){
+
+    if(!isAnimating){
+        isAnimating = true;
+        let tl = gsap.timeline({
+            onComplete: function(){
+                isAnimating = false;
+                let main = select(".maincard");
+                let incoming = select(".incomingcard");
+    
+                incoming.classList.remove("z-[2]");
+                incoming.classList.add("z-[3]");
+                incoming.classList.remove("incomingcard");
+    
+                main.classList.remove("z-[3]");
+                main.classList.add("z-[2]");
+                gsap.set(main,{
+                    scale: 1,
+                    opacity: 1
+                })
+                if(curr === users.length) curr = 0;
+                select(".maincard img").src = users[curr].displayPic;
+                curr++;
+                main.classList.remove("maincard");
+                incoming.classList.add("maincard");
+                main.classList.add("incomingcard");
+    
+                
+            }
+        });
+    
+        tl.to(".maincard",{
+            scale: 1.1,
+            opacity: 0,
+            ease: Circ,
+            duration: .9
+        }, "a")
+        .from(".incomingcard",{
+            scale: .9,
+            opacity: 0,
+            ease: Circ,
+            duration: 1.1
+        }, "a") // a flag se dono ek sath start honge, and name jo a diya hai koi bhi de skte hai
+    }
+    
+}
+
+let deny = select(".deny");
+let accept = select(".accept");
+
+deny.addEventListener("click", function(){
+    imageChange();
+    setData(curr-1);
+    gsap.from(".details .element", {
+        y:"100%",
+        // opacity: 0,
+        stagger: .06,
+        ease: Power4.easeInOut,
+        duration: 1.5
+    })
+})
+
+//2. but hum yahan, incoming card ko maincard bna denge and jo maincard ko gayab kiya hai isse incoming card bna denge.
+
+accept.addEventListener("click", function(){
+    imageChange();
+    setData(curr-1);
+    gsap.from(".details .element", {
+        y:"100%",
+        // opacity: 0,
+        stagger: .06,
+        ease: Power4.easeInOut,
+        duration: 1.5
+    })
+})
+
+function containerCreator(){
+    document.querySelectorAll('.element')
+    .forEach(function(element){
+        let div = document.createElement("div");
+        div.classList.add(`${element.classList[1]}container`, 'overflow-hidden');
+        div.appendChild(element);
+        select(".details").appendChild(div);
+    })
+}
+
+containerCreator();
+

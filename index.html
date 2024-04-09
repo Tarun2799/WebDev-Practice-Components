@@ -18,11 +18,13 @@
 </head>
 <body>
     <div class="w-full h-screen bg-black font-['gilroy']">
-        <div class="imagecontainer w-full h-screen relative">
-            <div class="maincard z-[3] w-full absolute h-screen ">
-                <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1585066699728-a56ef32a992b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjN8fHBvdHJhaXR8ZW58MHx8MHx8fDA%3D" alt="">
+        <div class="imagecontainer w-full h-screen relative overflow-hidden">
+            <div class="maincard z-[3] w-[130%] absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 h-[130%] ">
+                <img class="w-full h-full object-cover" src="" alt="">
             </div>
-            <div class="incomingcard z-[2] w-full absolute h-screen "></div>
+            <div class="incomingcard z-[2] w-[130%] absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 h-[130%] ">
+                <img class="w-full h-full object-cover" src="" alt="">
+            </div>
         </div>
         <div class="absolute top-0 left-0 z-[4] w-full h-screen   flex flex-col justify-between">
             <div class="navbar flex justify-between px-5 py-6 items-center text-white">
@@ -39,15 +41,15 @@
             </div>
             <div class="detailscontainer w-full">
                 <div class="details px-5 py-6 w-full ">
-                    <div class="location flex gap-3">
+                    <div class="element location flex gap-3">
                         <i class="w-[1.6rem] h-[1.6rem] flex items-center justify-center rounded-full font-semibold bg-white ri-corner-left-up-line"></i>
                         <h3 class="text-white">USA,California</h3>
                     </div>
-                    <div class="name flex gap-5 text-white mt-1">
+                    <div class="element name flex gap-5 text-white mt-1">
                         <h1 class="font-regular tracking-tighter text-7xl">Victoria</h1>
                         <h1 class="font-regular tracking-tighter text-7xl opacity-70">22</h1>
                     </div>
-                    <div class="tags flex gap-3 text-white mt-4">
+                    <div class="element tags flex gap-3 text-white mt-4">
                         <!-- <div class="tag flex items-center bg-white/30 px-3 py-1 rounded-full gap-3">
                             <i class="text-md ri-music-2-fill"></i>
                             <h3 class="text-md tracking-tight" >Music</h3>
@@ -61,15 +63,15 @@
                             <h3 class="text-md tracking-tight" >Music</h3>
                         </div> -->
                     </div>
-                    <div class="bio text-white/80 mt-5">
+                    <div class="element bio text-white/80 mt-5">
                         <h3 class="text-xl">Bio</h3>
                         <p class="text-lg mt-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam quisquam magnam officiis laudantium, animi minima provident sunt! Deleniti, est hic?</p>
                     </div>
-                    <div class="flex items-center mt-10 gap-2">
-                        <button class="py-3 rounded-xl w-1/2 bg-white">
+                    <div class="element flex items-center mt-10 gap-2">
+                        <button class="deny py-3 rounded-xl w-1/2 bg-white">
                             <i class="text-3xl font-semibold ri-close-line"></i>
                         </button>
-                        <button class="py-3 rounded-xl w-1/2 bg-[#fc5149]">
+                        <button class="accept py-3 rounded-xl w-1/2 bg-[#fc5149]">
                             <i class="text-3xl font-semibold text-white ri-heart-2-fill"></i>
                         </button>
                     </div>
